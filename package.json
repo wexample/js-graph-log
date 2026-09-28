@@ -1,7 +1,31 @@
 {
   "name": "@wexample/js-graph-log",
   "version": "1.0.0",
+  "description": "Lanes for a history read newest first, merges and forks included, and their SVG drawing — the layout of git log --graph, framework-agnostic.",
+  "license": "MIT",
   "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "tsc && node --test tests/*.test.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "wexample",
+    "git",
+    "graph",
+    "log",
+    "svg"
+  ],
+  "repository": "https://github.com/wexample/js-graph-log",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.3"
+  },
   "publishConfig": {
     "access": "public"
   },
