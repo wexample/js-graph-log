@@ -1,4 +1,7 @@
 domain: js-graph-log.wex
+git:
+  main_deployment_remote_name: github
+  publication_strategy: main_push
 global:
   name: js-graph-log
   type: javascript-package
