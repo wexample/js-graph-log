@@ -71,7 +71,11 @@ export function graphLogLayout(items: GraphLogItem[]): GraphLogRow[] {
       color = nextColor++;
     }
 
-    const incoming: GraphLogEdge[] = waiting.map((from) => ({ from, to: column, color: before[from]!.color }));
+    const incoming: GraphLogEdge[] = waiting.map((from) => ({
+      from,
+      to: column,
+      color: before[from]!.color,
+    }));
 
     // The lanes that waited for it end here, but the one it stands in.
     waiting.slice(1).forEach((index) => {
@@ -112,7 +116,8 @@ export function graphLogLayout(items: GraphLogItem[]): GraphLogRow[] {
         return;
       }
 
-      const fromNode = index === column || opened.some((entry) => entry.column === index && !before[index]);
+      const fromNode =
+        index === column || opened.some((entry) => entry.column === index && !before[index]);
 
       if (index === column && parents.length) {
         outgoing.push({ from: column, to: column, color: lane.color });
@@ -130,7 +135,12 @@ export function graphLogLayout(items: GraphLogItem[]): GraphLogRow[] {
 
     // Lanes running past the row without touching it come in from above too.
     before.forEach((lane, index) => {
-      if (lane && lane.expects !== item.id && lanes[index] && lanes[index]!.expects === lane.expects) {
+      if (
+        lane &&
+        lane.expects !== item.id &&
+        lanes[index] &&
+        lanes[index]!.expects === lane.expects
+      ) {
         incoming.push({ from: index, to: index, color: lane.color });
       }
     });
@@ -161,14 +171,21 @@ export const GRAPH_LOG_ROW = 28;
 // hues so that neighbours stay apart.
 export type GraphLogLaneColor = (index: number) => string;
 
-export const graphLogDefaultLaneColor: GraphLogLaneColor = (index) => `hsl(${(index * 137) % 360} 60% 50%)`;
+export const graphLogDefaultLaneColor: GraphLogLaneColor = (index) =>
+  `hsl(${(index * 137) % 360} 60% 50%)`;
 
-const segment = (edge: GraphLogEdge, fromY: number, toY: number, laneColor: GraphLogLaneColor): string => {
+const segment = (
+  edge: GraphLogEdge,
+  fromY: number,
+  toY: number,
+  laneColor: GraphLogLaneColor
+): string => {
   const x1 = (edge.from + 0.5) * GRAPH_LOG_COLUMN;
   const x2 = (edge.to + 0.5) * GRAPH_LOG_COLUMN;
-  const path = x1 === x2
-    ? `M${x1} ${fromY}L${x2} ${toY}`
-    : `M${x1} ${fromY}C${x1} ${(fromY + toY) / 2} ${x2} ${(fromY + toY) / 2} ${x2} ${toY}`;
+  const path =
+    x1 === x2
+      ? `M${x1} ${fromY}L${x2} ${toY}`
+      : `M${x1} ${fromY}C${x1} ${(fromY + toY) / 2} ${x2} ${(fromY + toY) / 2} ${x2} ${toY}`;
 
   return `<path d="${path}" style="stroke:${laneColor(edge.color)}"/>`;
 };
@@ -190,10 +207,12 @@ export function graphLogSvg(
   ].join('');
   const cx = (row.column + 0.5) * GRAPH_LOG_COLUMN;
 
-  return `<svg class="graph-log--svg" width="${width}" height="${GRAPH_LOG_ROW}" viewBox="0 0 ${width} ${GRAPH_LOG_ROW}" aria-hidden="true">`
-    + lines
-    + `<circle class="graph-log--node" cx="${cx}" cy="${middle}" r="4" style="fill:${laneColor(row.color)}"/>`
-    + '</svg>';
+  return (
+    `<svg class="graph-log--svg" width="${width}" height="${GRAPH_LOG_ROW}" viewBox="0 0 ${width} ${GRAPH_LOG_ROW}" aria-hidden="true">` +
+    lines +
+    `<circle class="graph-log--node" cx="${cx}" cy="${middle}" r="4" style="fill:${laneColor(row.color)}"/>` +
+    '</svg>'
+  );
 }
 
 /**
