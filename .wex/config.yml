@@ -1,0 +1,7 @@
+domain: js-graph-log.wex
+global:
+  name: js-graph-log
+  type: javascript-package
+  version: 1.0.0
+wex:
+  version: 6.0.136
