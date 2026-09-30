@@ -1,6 +1,6 @@
 # @wexample/js-graph-log
 
-Version: 1.0.1
+Version: 1.0.2
 
 ## Laying out a history
 
