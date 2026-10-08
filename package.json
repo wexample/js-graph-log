@@ -1,6 +1,6 @@
 {
   "name": "@wexample/js-graph-log",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Lanes for a history read newest first, merges and forks included, and their SVG drawing — the layout of git log --graph, framework-agnostic.",
   "license": "MIT",
   "type": "module",
